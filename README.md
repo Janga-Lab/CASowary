@@ -4,11 +4,15 @@ CASowary is a command line machine learning tool written in Python 3.6.8 for pre
 
 CASowary has two different scripts that must be ran in a particular order: CASowary_Preprocess (which takes a list of gene names as input to create a fasta file of all possible guides that tile all transcripts associate with that gene) and CASowary_Predict (which takes the aforementioned fasta file, the TopHat alignment file, and a protein occupancy peak file to create guide predictions).
 
+Add the Gene_Information.txt to the same location where you downloaded the repository from the given link:
+
+https://indiana-my.sharepoint.com/:f:/g/personal/amkrug_iu_edu/Et5C7ArR7SNElsF8Tlz45UwBtpcvpVSKAesOmyipOl8pQg?e=c6EAhy
+
 CASowary Preprocess can be ran using the following. Gene.csv is a csv file containing gene names, and will generate a fasta file called Input_Guides.fasta.
 
 python CASowary_Preprocess.py Gene.csv -o Input_Guides.fasta
 
-The resulting Input_Guides.fasta needs to be ran through the TopHat aligner with the following options: read-mismatches 3, read-edit-dist 3 (see example below).
+The resulting Input_Guides.fasta needs to be ran through the TopHat aligner with the following options: read-mismatches 3, read-edit-dist 3 (see example below). The reference transcriptiome file is also stored at the same link with the Gene_Information.txt file.
 
 tophat --read-mismatches 3 --read-edit-dist 3 -o Gene_Guides ./BT_hg38_transcriptome_0221/BT_hg38_transcriptome_0221 Input_Guides.fasta
 
