@@ -71,7 +71,6 @@ arg_Parser.add_argument('input', help = 'A gene name or list of gene names seper
 arg_Parser.add_argument('-output', '-o', help = 'Name of the outputed fasta file name.')
 fun_Args = arg_Parser.parse_args()
 
-
 input_List = []
 if (fun_Args.output == None):
     output_File = '{:010d}'.format(random.randint(0, 10000000000)) + '.fasta'

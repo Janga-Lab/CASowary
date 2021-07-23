@@ -6,7 +6,7 @@ Created on Mon Jun 17 10:50:00 2019
 @author: xander
 """
 
-import numpy as np, os, sys
+import argparse, numpy as np, os
 os.path.join(os.path.dirname(__file__))
 
 def Get_Gene_Transcripts():
@@ -92,7 +92,6 @@ def Get_Sequence_Features (guide_Sequences, features = 'Sig'):
         return None
 
 def Get_Availability_Features (fasta, bed):
-    guide_Name, target_Trx, target_Seq = Get_Guide_Information (fasta)
     trx_Length = Get_Transcript_Lengths()
     target_Start = []
     target_End = []
@@ -154,22 +153,6 @@ def Get_Availability_Features (fasta, bed):
             target_Occupancy.append(0)
     return np.array([target_Hits, target_Location, target_Occupancy]).T
 
-def Sort_Guide_Hits(hits):
-    bed_Data = []
-    with open (hits, 'r') as file:
-        text = file.readlines()
-        for i in range(len(text)):
-            line = text[i].strip().split('\t')
-            bed_Data.append(line)
-        bed_Data = np.array(bed_Data)
-        bed_Data = bed_Data[bed_Data[:,3].argsort()]
-        file.close()
-    with open (hits,'w') as file:
-        for i in range(bed_Data.shape[0]):
-            file.write(bed_Data[i][0] + '\t' + bed_Data[i][1] + '\t' + bed_Data[i][2] + '\t' + bed_Data[i][3] + '\t' + bed_Data[i][4] + '\t' + bed_Data[i][5] + '\n')
-        file.close()
-    return text
-
 def Get_All_Features (fasta, bed, features):
     guide_Information = Get_Guide_Information(fasta)
     sequence_Features = Get_Sequence_Features(guide_Information[2], features)
@@ -200,7 +183,7 @@ def Get_Protein_Occupancy (bed):
     return occ_Start, occ_End
 
 def Get_Training_Data (features = 'Sig'):
-    file_Names = {'Sig':'Training Data Sig.txt','2':'Training Data 2.txt','3':'Training Data 3.txt','Gini':'Training Data Gini.txt','DT':'Training Data Decision Tree.txt'}
+    file_Names = {'Sig':'Training Data Sig.txt','2':'Training Data 2.txt','3':'Training Data 3.txt','Gini':'CASowary Training Data.txt','DT':'Training Data Decision Tree.txt'}
     raw_Data = []
     if (features in file_Names.keys()):
         with open (file_Names[features]) as file:
@@ -283,20 +266,20 @@ def Parse_Results (result_File):
                                 file.write(line[0] + '\t' + '5`-'+line[2] + '-3`' + '\n')
                             file.write('\n')
                         file.close()
-                elif (k == 3):
-                    with open ('Worst_Guides.txt','w') as file:
-                        for l in list_Keys:
-                            for m in guide_Results[i][j][k][l]:
-                                line = text[m].strip().split('\t')
-                                file.write(line[0] + '\t' + '5`-'+line[2] + '-3`' + '\n')
-                            file.write('\n')
-                        file.close()
     os.chdir(path)
 
+arg_Parser = argparse.ArgumentParser(description = 'Creates a text file containing all guide predictions for all guides contained in the input file, based upon the given protein occupancy file and the provided hits file.')
+arg_Parser.add_argument('input', help = 'A fasta file containing the all the guides desired for predictions.')
+arg_Parser.add_argument('-hits', '-t',  help = 'Name of the file containing the number of times the guide appeared in the target transcriptome.')
+arg_Parser.add_argument('-peak', '-p', help = 'Named of the peak file containing the protein occupancy.')
+arg_Parser.add_argument('-output', '-o', help = 'Name of the outputed fasta file name.')
+fun_Args = arg_Parser.parse_args()
 
-fasta_File = 'Input_Guides.fasta'
-occupy_File = 'SRR1033461_transcriptome_peaks.xls'
-hits_File = 'Target_Hits.sorted.bed'
+fasta_File = fun_Args.input
+occupy_File = fun_Args.peak
+hits_File = fun_Args.hits
+predict_File = fun_Args.output
+
 guide_Name, target_Trx, target_Seq = Get_Guide_Information (fasta_File)
 test_Data = Get_All_Features(fasta_File, occupy_File, 'Gini')
 train_Data, train_Label = Get_Training_Data('Gini')
@@ -304,7 +287,6 @@ model = Create_Model('Tree')
 model.fit(train_Data, train_Label)
 results = model.predict(test_Data)
 probability = model.predict_proba(test_Data)
-predict_File = 'Target_Predictions.txt'
 
 with open (predict_File, 'w') as file:
     file.write('Guide Name' + '\t' + 'Transcript Name' + '\t' + 'Guide Sequence' + '\t' + 'Location' + '\t' + 'Model Prediction' + '\t' + 'Class 0 Probability' + '\t' + 'Class 1 Probability' + '\t' + 'Class 2 Probability' + '\t' + 'Class 3 Probability' + '\n')
