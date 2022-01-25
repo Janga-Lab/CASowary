@@ -1,0 +1,2 @@
+hg38_transcriptome.fasta filter=lfs diff=lfs merge=lfs -text
+Gene_Information.txt filter=lfs diff=lfs merge=lfs -text
