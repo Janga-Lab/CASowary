@@ -14,7 +14,7 @@ sklearn (version 0.20.3)
 ##### Other software:
 ```
 TopHat aligner (version 2.1.1)
-bedtools (version 2.26.0).
+bedtools (version 2.26.0)
 ```
 
 ## Repository:
