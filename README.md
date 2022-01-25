@@ -29,11 +29,10 @@ a. **CASowary_Preprocess** - which takes a list of gene names as input to create
 
 b. **CASowary_Predict** - which takes the aforementioned fasta file, the TopHat alignment file, and a protein occupancy peak file to create guide predictions.
 
-**Note:** Add the Gene_Information.txt to the same location where you downloaded the repository from the given link:
+## Repository:
+https://github.com/Janga-Lab/CASowary.git
 
-https://indiana-my.sharepoint.com/:f:/g/personal/amkrug_iu_edu/Et5C7ArR7SNElsF8Tlz45UwBtpcvpVSKAesOmyipOl8pQg?e=c6EAhy
-
-## Repository? (not clear, when or what to download from repository, it should be described in this page. Also, if these are static files, i suggest please try to make them available as github file or user's local or working directory to avoid any third party permission issue for IU.
+***Files included:*** Gene information (Gene_Information.txt), Reference transcriptome file (hg38_transcriptome.fasta), Cell line protein occupancy file (Hek293_Occupancy_Profile.xls, Hela_Occupancy_Profile.xls), Gene input file (Gene.csv), List of k-mers (Gini_K-mers.txt), and training data for the model (Training_Data_Gini.txt)
 
 
 **CASowary_Preprocess** can be run using the following command. 
