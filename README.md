@@ -3,12 +3,13 @@
 ***CASowary*** is a command line machine learning tool written in Python 3.6.8 for predicting the efficacy of sgRNAs for CRISPR Cas13 and other transcript targeting systems. 
 
 ### Software and library requirements
-##### Python libraries: (DO add the library versions if available)
+##### Python libraries:
 ```
-argparse
-numpy
-os
-random
+argparse (version 1.1)
+numpy (version 1.16.2)
+os (3.6)
+random (3.6)
+sklearn (version 0.20.3)
 ```
 ##### Other software:
 ```
@@ -16,11 +17,10 @@ TopHat aligner (version 2.1.1)
 bedtools (version 2.26.0).
 ```
 
-#### Repository:
-https://indiana-my.sharepoint.com/:f:/g/personal/amkrug_iu_edu/Et5C7ArR7SNElsF8Tlz45UwBtpcvpVSKAesOmyipOl8pQg?e=c6EAhy
+## Repository:
+https://github.com/Janga-Lab/CASowary.git
 
-***Files included:*** Gene_Information.txt, Reference transcriptiome file
-
+***Files included:*** Gene information (Gene_Information.txt), Reference transcriptome file (hg38_transcriptome.fasta), Cell line protein occupancy file (Hek293_Occupancy_Profile.xls, Hela_Occupancy_Profile.xls), Gene input file (Gene.csv), List of k-mers (Gini_K-mers.txt), and training data for the model (Training_Data_Gini.txt)
 
 ### How it works: 
 CASowary has two different scripts that must be run in a particular order:
@@ -28,12 +28,6 @@ CASowary has two different scripts that must be run in a particular order:
 a. **CASowary_Preprocess** - which takes a list of gene names as input to create a *fasta* file of all possible guides that tile all transcripts associated with that gene. 
 
 b. **CASowary_Predict** - which takes the aforementioned fasta file, the TopHat alignment file, and a protein occupancy peak file to create guide predictions.
-
-## Repository:
-https://github.com/Janga-Lab/CASowary.git
-
-***Files included:*** Gene information (Gene_Information.txt), Reference transcriptome file (hg38_transcriptome.fasta), Cell line protein occupancy file (Hek293_Occupancy_Profile.xls, Hela_Occupancy_Profile.xls), Gene input file (Gene.csv), List of k-mers (Gini_K-mers.txt), and training data for the model (Training_Data_Gini.txt)
-
 
 **CASowary_Preprocess** can be run using the following command. 
 ```
