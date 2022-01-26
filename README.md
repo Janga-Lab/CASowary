@@ -57,7 +57,7 @@ bedtools sort -i Target_Hits.bed > Target_Hits.sorted.bed
 
 Finally, **CASowary_Predict** script can be run using the following command. 
 ```
-python CASowary_Predict.py Input_Guides.fasta -h Target_Hits.sorted.bed -p Hek293_Occupancy_Profile.xls -o Predictions.txt
+python CASowary_Predict.py Input_Guides.fasta -t Target_Hits.sorted.bed -p Hek293_Occupancy_Profile.xls -o Predictions.txt
 ```
 
 #### File description
