@@ -22,6 +22,9 @@ https://github.com/Janga-Lab/CASowary.git
 
 ***Files included:*** Gene information (Gene_Information.txt), Reference transcriptome file (hg38_transcriptome.fasta), Cell line protein occupancy file (Hek293_Occupancy_Profile.xls, Hela_Occupancy_Profile.xls), Gene input file (Gene.csv), List of k-mers (Gini_K-mers.txt), and training data for the model (Training_Data_Gini.txt)
 
+**_Note:_** Due to the size of the Gene_Information.txt and hg38_transcriptome.fasta they are no longer available on GitHub. You can download them at the following link:
+https://indiana-my.sharepoint.com/personal/amkrug_iu_edu/_layouts/15/onedrive.aspx?id=%2Fpersonal%2Famkrug%5Fiu%5Fedu%2FDocuments%2FCASowary%2FPublished%20Version&view=0
+
 ### How it works: 
 CASowary has two different scripts that must be run in a particular order:
  
